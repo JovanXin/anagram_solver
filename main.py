@@ -1,21 +1,11 @@
 
-def add_words():
-  word_list = []
-  with open('words.txt', 'r') as file1:
-    for words in file1:
-      word_list.append(words.lower())
-  global word_dict
-  word_dict = {word.strip(): sorted(word.strip()) for word in word_list}
-
-
-
 def anagram(user_anagram):
-  user_anagram_lower = user_anagram.lower()
-  sorted_anagram = sorted([letter for letter in user_anagram_lower])
-  for word in word_dict:
-    if sorted_anagram == word_dict[word]:
-      return (f"The solution to your anagram is {word}")
-  return (f"Your anagram, {user_anagram}, does not seem to be present in our dictionary, \nor is not a real word")
+  sorted_anagram = ''.join(sorted(user_anagram.lower())) #turns user inputted word into lowercase and sorted
+  with open('words.txt', 'r') as file1:
+    for word in file1:
+      sorted_word = ''.join(sorted(word.lower())) #turns each word into lowercase and sorted
+      if sorted_word == sorted_anagram: 
+        return (f"The solution to your anagram is {word}")
+      return (f"Your anagram, {user_anagram}, does not seem to be present in our dictionary, \nor is not a real word")
 
-add_words()
 print(anagram(input("what is your word: ")))
